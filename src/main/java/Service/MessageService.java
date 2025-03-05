@@ -23,7 +23,7 @@ public class MessageService {
     // 3. Insert message
     public Message addMessage(Message message) {
         if (!accountService.validAccountId(message.getPosted_by())) return null;
-        if (message.getMessage_text() == null || message.getMessage_text().length() > 255) return null;
+        if (message.getMessage_text().isEmpty() || message.getMessage_text().length() > 255) return null;
         return messageDAO.insertMessage(message);
     }
 

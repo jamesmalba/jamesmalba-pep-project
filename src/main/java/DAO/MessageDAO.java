@@ -76,7 +76,8 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, message_id);
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            if (rs.next()){
+                if (rs.getString("message_text").isEmpty()) return null;
                 Message message = new Message(rs.getInt("message_id"), 
                             rs.getInt("posted_by"), 
                             rs.getString("message_text"),
@@ -112,7 +113,7 @@ public class MessageDAO {
             preparedStatement.setString(2, message_text);
 
             preparedStatement.executeUpdate();
-        } catch(SQLException e){
+        } catch(SQLException e) {
             System.out.println(e.getMessage());
         }
     }

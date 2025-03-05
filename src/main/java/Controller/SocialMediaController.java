@@ -33,24 +33,15 @@ public class SocialMediaController {
      */
     public Javalin startAPI() {
         Javalin app = Javalin.create();
-        app.get("example-endpoint", this::exampleHandler);
         app.post("/register", this::postAccountHandler);
         app.post("/login", this::verifyLoginInfoHandler);
         app.post("/messages", this::postNewMessageHandler);
         app.get("/messages", this::getAllMessagesHandler);
-        app.get("/message/{message_id}", this::getMessageByIdHandler);
-        app.delete("/message/{message_id}", this::deleteMessageByIdHandler);
+        app.get("/messages/{message_id}", this::getMessageByIdHandler);
+        app.delete("/messages/{message_id}", this::deleteMessageByIdHandler);
         app.patch("messages/{message_id}", this::updateMessageByIdHandler);
         app.get("accounts/{account_id}/messages", this::getAllMessagesByAccountIdHandler);
         return app;
-    }
-
-    /**
-     * This is an example handler for an example endpoint.
-     * @param context The Javalin Context object manages information about both the HTTP request and response.
-     */
-    private void exampleHandler(Context context) {
-        context.json("sample text");
     }
 
     // 1.
@@ -58,10 +49,10 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
         Account addedAccount = accountService.addNewAccount(account);
-        if(addedAccount == null){
-            ctx.status(400);
-        } else{
+        if(addedAccount != null){
             ctx.json(mapper.writeValueAsString(addedAccount));
+        } else{
+            ctx.status(400);
         }
     }
 
@@ -82,10 +73,10 @@ public class SocialMediaController {
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(ctx.body(), Message.class);
         Message addedMessage = messageService.addMessage(message);
-        if (addedMessage == null) {
-            ctx.status(400);
-        } else {
+        if (addedMessage != null) {
             ctx.json(mapper.writeValueAsString(addedMessage));
+        } else {
+            ctx.status(400);
         }
     }
 
@@ -121,10 +112,10 @@ public class SocialMediaController {
         String message = ctx.formParam("message_text");
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
         Message updatedMessage = messageService.updateMessageById(message_id, message);
-        if (updatedMessage == null) {
-            ctx.status(400);
-        } else {
+        if (updatedMessage != null) {
             ctx.json(mapper.writeValueAsString(updatedMessage));
+        } else {
+            ctx.status(400);
         }
     }
 
