@@ -50,24 +50,36 @@ public class AccountDAO {
         return null;
     }
 
-    // Get Account By Account ID
-    public Account getAccountById(int account_id) {
+    // Check account name
+    public boolean validAccountUsername(String username) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String sql = "SELECT * FROM account WHERE username = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) return false;
+            else return true;
+        } catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    // Check if account with account_id exists
+    public boolean validAccountId(int account_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "SELECT * FROM account WHERE account_id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, account_id);
             ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                Account account = new Account(rs.getInt("account_id"), 
-                            rs.getString("username"), 
-                            rs.getString("password"));
-                return account;
-            }
+            if (rs.next()) return true;
+            else return false;
         } catch(SQLException e){
             System.out.println(e.getMessage());
         }
-        return null;
+        return false;
     }
 
     

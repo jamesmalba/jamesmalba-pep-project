@@ -2,10 +2,7 @@ package Service;
 
 import Model.Account;
 import DAO.AccountDAO;
-import DAO.MessageDAO;
 import Service.AccountService;
-
-import java.util.List;
 
 public class AccountService {
 
@@ -21,6 +18,8 @@ public class AccountService {
 
     // Process new Account Registration
     public Account addNewAccount(Account account) {
+        if (account.getUsername() == null || account.getPassword().length() < 4) return null;
+        if (!accountDAO.validAccountUsername(account.getUsername())) return null;
         return accountDAO.insertAccount(account);
     }
 
@@ -29,9 +28,9 @@ public class AccountService {
         return accountDAO.verifyAccount(account);
     }
 
-    // Get Account by ID
-    public Account getAccountById(int account_id) {
-        return accountDAO.getAccountById(account_id);
+    // Check if account id exists
+    public boolean validAccountId(int account_id) {
+        return accountDAO.validAccountId(account_id);
     }
     
 }
