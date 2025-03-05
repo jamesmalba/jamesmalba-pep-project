@@ -24,8 +24,12 @@ public class AccountService {
     * @return The account object with the account id, null for invalid account info. 
     */
     public Account addNewAccount(Account account) {
-        if (account.getUsername().isEmpty() || account.getPassword().length() < 4) return null;
-        if (!accountDAO.validAccountUsername(account.getUsername())) return null;
+        if (account.getUsername().isEmpty() || account.getPassword().length() < 4) {
+            return null;
+        }
+        if (!accountDAO.validAccountUsername(account.getUsername())) {
+            return null;
+        }
         return accountDAO.insertAccount(account);
     }
 

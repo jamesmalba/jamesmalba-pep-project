@@ -84,6 +84,7 @@ public class MessageDAO {
                             rs.getLong("time_posted_epoch"));
                 return message;
             }
+            return null;
         } catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -109,8 +110,8 @@ public class MessageDAO {
         try {
             String sql = "UPDATE message SET message_text = ? WHERE message_id = ?;";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, message_id);
-            preparedStatement.setString(2, message_text);
+            preparedStatement.setString(1, message_text);
+            preparedStatement.setInt(2, message_id);
 
             preparedStatement.executeUpdate();
         } catch(SQLException e) {
