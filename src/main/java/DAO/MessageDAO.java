@@ -90,7 +90,7 @@ public class MessageDAO {
     }
 
     // Delete Message Given Message ID
-    public void removeMessageById(int message_id) {
+    public void deleteMessageById(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {
             String sql = "DELETE FROM message WHERE message_id = ?;";
@@ -118,7 +118,7 @@ public class MessageDAO {
     }
 
     // Get All Message From User Given Account ID
-    public List<Message> getAllMessagesById(int message_id) {
+    public List<Message> getAllMessagesByAccountId(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
         try {
