@@ -7,8 +7,12 @@ import java.sql.*;
 
 public class AccountDAO {
     
-    // Insert new user
-
+    /**
+    * Creates a new account into the database.
+    *
+    * @param account The account being added
+    * @return The account object with the account id
+    */
     public Account insertAccount(Account account) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -29,7 +33,12 @@ public class AccountDAO {
         return null;
     }
 
-    // Verify account login
+    /**
+    * Verifies account logins
+    *
+    * @param account The account being verified
+    * @return The account object with the account id, null otherwise
+    */
     public Account verifyAccount(Account account) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -50,7 +59,12 @@ public class AccountDAO {
         return null;
     }
 
-    // Check account name
+    /**
+    * Checks if the account name is not taken in the database.
+    *
+    * @param username The username string being checked if exists. 
+    * @return false if the username is used, true if username is not taken
+    */
     public boolean validAccountUsername(String username) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -66,7 +80,12 @@ public class AccountDAO {
         return false;
     }
 
-    // Check if account with account_id exists
+    /**
+    * Checks if the account id exists in the database.
+    *
+    * @param account_id The account being checked if exists. 
+    * @return true if the account id is in the database, false otherwise. 
+    */
     public boolean validAccountId(int account_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {

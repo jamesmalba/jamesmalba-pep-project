@@ -16,19 +16,36 @@ public class AccountService {
         this.accountDAO = accountDAO;
     }
 
-    // Process new Account Registration
+    /**
+    * Adds a new account using accountDAO.
+    * Checks if account username is not null and if the password length is greater than 4.
+    *
+    * @param account The account being added
+    * @return The account object with the account id, null for invalid account info. 
+    */
     public Account addNewAccount(Account account) {
         if (account.getUsername() == null || account.getPassword().length() < 4) return null;
         if (!accountDAO.validAccountUsername(account.getUsername())) return null;
         return accountDAO.insertAccount(account);
     }
 
-    // Verify Account Login
+    /**
+    * Verifies Account Login information using accountDAO.
+    *
+    * @param account The account being verified
+    * @return The account object if the account is verified. 
+    */
     public Account verifyAccount(Account account) {
         return accountDAO.verifyAccount(account);
     }
 
     // Check if account id exists
+    /**
+    * Checcks if the account id exists. 
+    *
+    * @param account_id the id being checked if exists in database. 
+    * @return true if exists, false otherwise. 
+    */
     public boolean validAccountId(int account_id) {
         return accountDAO.validAccountId(account_id);
     }
