@@ -9,17 +9,12 @@ import java.util.List;
 
 public class MessageDAO {
 
-    // Insert message
-    /*
-     * The creation of the message will be successful if and only if 
-     * the message_text is not blank, 
-     * is not over 255 characters, 
-     * and posted_by refers to a real, 
-     * existing user. 
-     * If successful, the response body should contain a JSON of the message, 
-     * including its message_id. The response status should be 200, 
-     * which is the default. The new message should be persisted to the database.
-     */
+    /**
+    * Creates a new message into the database.
+    *
+    * @param message The message being added
+    * @return The message object with the message id
+    */
     public Message insertMessage(Message message) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -41,10 +36,11 @@ public class MessageDAO {
         return null;
     }
 
-    // Get all messages
     /**
-     * @return all messages
-     */
+    * Gets all messages from the database.
+    *
+    * @return The message list with all messages.
+    */
     public List<Message> getAllMessages() {
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();
@@ -68,7 +64,12 @@ public class MessageDAO {
         return messages;
     }
 
-    // Get One Message Given Message ID
+    /**
+    * Gets message based on message id.
+    *
+    * @param message_id The message id being searched
+    * @return The message object with the message id
+    */
     public Message getMessageById(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -91,7 +92,11 @@ public class MessageDAO {
         return null;
     }
 
-    // Delete Message Given Message ID
+    /**
+    * Deletes message by id from database.
+    *
+    * @param message_id The message id being deleted
+    */
     public void deleteMessageById(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -104,7 +109,11 @@ public class MessageDAO {
         }
     }
 
-    // Update Message Given Message ID
+    /**
+    * Update message given message id.
+    *
+    * @param message_id, message_text The message id being updated and its updated text. 
+    */
     public void updateMessageById(int message_id, String message_text) {
         Connection connection = ConnectionUtil.getConnection();
         try {
@@ -119,7 +128,12 @@ public class MessageDAO {
         }
     }
 
-    // Get All Message From User Given Account ID
+    /**
+    * Get All Message From User Given Account ID
+    *
+    * @param message_id the message id being searched
+    * @return The message list based on message id. 
+    */
     public List<Message> getAllMessagesByAccountId(int message_id) {
         Connection connection = ConnectionUtil.getConnection();
         List<Message> messages = new ArrayList<>();

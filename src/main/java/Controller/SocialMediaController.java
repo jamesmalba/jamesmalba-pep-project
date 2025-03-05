@@ -44,7 +44,11 @@ public class SocialMediaController {
         return app;
     }
 
-    // 1.
+    /**
+     * Handler to post a new account.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void postAccountHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -56,7 +60,11 @@ public class SocialMediaController {
         }
     }
 
-    // 2.
+    /**
+     * Handler to verify login information.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void verifyLoginInfoHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Account account = mapper.readValue(ctx.body(), Account.class);
@@ -68,7 +76,11 @@ public class SocialMediaController {
         }
     }   
 
-    // 3. 
+    /**
+     * Handler to post a new message.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void postNewMessageHandler(Context ctx) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(ctx.body(), Message.class);
@@ -80,13 +92,20 @@ public class SocialMediaController {
         }
     }
 
-    // 4. 
+    /**
+     * Handler to get all messages.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     */
     private void getAllMessagesHandler(Context ctx) {
         List<Message> messages = messageService.getAllMessages();
         ctx.json(messages);
     }
 
-    // 5.
+    /**
+     * Handler to get message based on message id.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void getMessageByIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
@@ -99,7 +118,11 @@ public class SocialMediaController {
         
     }
 
-    // 6.
+    /**
+     * Handler to delete message by its id.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void deleteMessageByIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         int message_id = Integer.parseInt(ctx.pathParam("message_id"));
@@ -111,7 +134,11 @@ public class SocialMediaController {
         }
     }
 
-    // 7.
+    /**
+     * Handler to update message by its id.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     * @throws JsonProcessingException will be thrown if there is an issue converting JSON into an object.
+     */
     private void updateMessageByIdHandler(Context ctx) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Message message = mapper.readValue(ctx.body(), Message.class);
@@ -125,7 +152,10 @@ public class SocialMediaController {
         }
     }
 
-    // 8.
+    /**
+     * Handler to get all messages by account id.
+     * @param ctx the context object handles information HTTP requests and generates responses within Javalin.
+     */
     private void getAllMessagesByAccountIdHandler(Context ctx) {
         int account_id = Integer.parseInt(ctx.pathParam("account_id"));
         List<Message> messages = messageService.getAllMessagesByAccountId(account_id);

@@ -8,10 +8,17 @@ public class AccountService {
 
     private AccountDAO accountDAO;
 
+    /**
+     * no-args constructor for creating a new AccountService with a new AccountDAO.
+     */
     public AccountService() {
         accountDAO = new AccountDAO();
     }
 
+    /**
+     * Constructor for a AccountService when a accountDAO is provided.
+     * @param accountDAO
+     */
     public AccountService(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
     }
